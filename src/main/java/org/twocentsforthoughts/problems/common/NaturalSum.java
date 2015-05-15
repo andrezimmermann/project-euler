@@ -11,34 +11,37 @@ import java.util.Set;
  */
 public class NaturalSum {
 
-    private boolean isMultiple(int i, int targetMultiple) {
-        return i % targetMultiple == 0;
+    private boolean isAlreadyInResultSet(Set<Integer> set, int value) {
+        return !set.contains(value);
+    }
+
+    private boolean isMultiple(int number, int targetMultiple) {
+        return number % targetMultiple == 0;
     }
 
     /**
      * Return the sum of numbers within the set, limiting the set of naturals number to look for.
-     * @param setMultiple of multiples
+     * @param multiples of multiples
      * @param limit of number for the search 0 to including limit
      * @return the sum of numbers
      */
-    public int sumMultiples(Set<Integer> setMultiple, int limit) {
-        if (setMultiple == null) {
-            setMultiple = Collections.EMPTY_SET;
+    public int sumMultiples(Set<Integer> multiples, int limit) {
+        if (multiples == null) {
+            multiples = Collections.EMPTY_SET;
         }
 
-        Set<Integer> setCurrentNumbers = new LinkedHashSet<Integer>();
+        Set<Integer> resultSet = new LinkedHashSet<Integer>();
 
-        for (int currentNumber = 1; currentNumber < limit; currentNumber++) {
-            for (Integer multipleOf : setMultiple) {
-                if (isMultiple(currentNumber, multipleOf) && !setCurrentNumbers.contains(currentNumber)) {
-                    setCurrentNumbers.add(currentNumber);
-                    break;
+        for (Integer multipleOf : multiples) {
+            for (int currentNumber = 1; currentNumber < limit; currentNumber++) {
+                if (isAlreadyInResultSet(resultSet, currentNumber) && isMultiple(currentNumber, multipleOf)) {
+                    resultSet.add(currentNumber);
                 }
             }
         }
 
         int result = 0;
-        for (Integer number : setCurrentNumbers) {
+        for (Integer number : resultSet) {
             result += number;
         }
 
