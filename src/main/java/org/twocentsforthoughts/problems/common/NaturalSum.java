@@ -34,7 +34,8 @@ public class NaturalSum {
 
         for (Integer multipleOf : multiples) {
             for (int currentNumber = 1; currentNumber < limit; currentNumber++) {
-                if (isAlreadyInResultSet(resultSet, currentNumber) && isMultiple(currentNumber, multipleOf)) {
+                if (isAlreadyInResultSet(resultSet, currentNumber)
+                    && isMultiple(currentNumber, multipleOf)) {
                     resultSet.add(currentNumber);
                 }
             }
